@@ -1,0 +1,9 @@
+# Bot Settings File
+config.json
+memory.json
+
+# Bot Build Data
+built
+node_modules
+
+yarn-error.log
