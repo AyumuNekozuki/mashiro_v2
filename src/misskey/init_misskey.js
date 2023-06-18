@@ -10,7 +10,7 @@ import WebSocket from "ws";
 import botConfig from "../../config.json" assert { type: 'json' };
 
 import forwardMessage from "../module/forwardMessage.js";
-
+import { saveTalkLog } from "../module/memory.js";
 
 const MkfetchApi = async (api, param) => {
   const response = await fetch(`https://${botConfig.misskey.host}/api/${api}`, {
@@ -75,15 +75,8 @@ const wsConnect = () => {
         await noteRepryCreate(msgObj.id, response);
         logger.info(`Send Message: ${response}`);
 
-        if(typeof global.memory?.data?.messages?.misskey?.[msgObj.user.username] === "undefined"){
-          global.memory.data.messages.misskey = {
-            ...global.memory.data.messages.misskey,
-            [msgObj.user.username]: []
-          };
-        }
-    
-        global.memory.data.messages.misskey[msgObj.user.username].push(`${msgObj.user.username}: ${inputText}`);
-        global.memory.data.messages.misskey[msgObj.user.username].push(`あなた: ${response}`);
+        saveTalkLog("misskey", msgObj.user.username, inputText, response);
+
       }catch(e){
         logger.error(e);
       }

@@ -9,6 +9,7 @@ const { App } = slackBolt;
 import botConfig from "../../config.json" assert { type: 'json' };
 
 import forwardMessage from "../module/forwardMessage.js";
+import { saveTalkLog } from "../module/memory.js";
 
 const app = new App({
   token: botConfig.slack.botToken,
@@ -36,15 +37,7 @@ app.event('app_mention', async ({ event, context, client, say }) => {
     });
     logger.info(`Send Message: ${response}`);
 
-    if(typeof global.memory?.data?.messages?.slack?.[event.user] === "undefined"){
-      global.memory.data.messages.slack = {
-        ...global.memory.data.messages.slack,
-        [event.user]: []
-      };
-    }
-
-    global.memory.data.messages.slack[event.user].push(`${event.user}: ${inputText}`);
-    global.memory.data.messages.slack[event.user].push(`あなた: ${response}`);
+    saveTalkLog("slack", event.user, inputText, response);
 
   }catch(e){
     logger.error(e);

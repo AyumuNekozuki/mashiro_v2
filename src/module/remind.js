@@ -1,16 +1,14 @@
 const reminderDateCheck = (msgid, date) => {
-  // const interval = setInterval(reminderDateCheck(msgid, date), 1000 * 60);
 
-  // if(Date.now() > date){
-  //   MkfetchApi("notes/create", {
-  //     replyId: msgid,
-  //     text: "これの進捗、どうでしょう...？",
-  //   })
+  if(Date.now() > date){
+    MkfetchApi("notes/create", {
+      replyId: msgid,
+      text: "これの進捗、どうでしょう...？",
+    })
 
+    global.memory.data.remind[msgid] = Date.now() + 1000 * 60 * 60 * 3;
 
-  //   clearInterval(interval);
-  // }
-  // TODO
+  }
 }
 
 const remind = (msgObj) => {
@@ -18,13 +16,10 @@ const remind = (msgObj) => {
 
   global.memory.data.remind = [
     ...global.memory.data.remind,
-    {
-      "msgid": [msgObj.id],
-      "date": Date.now() + 1000 * 60 * 60 * 3
-    }
+    {[msgObj.id]: Date.now() + 1000 * 60 * 60 * 3}
   ];
 
-  return '了解です！３時間後にリマインドします！';
+  return 'この機能は準備中です...ごめんなさい...';
 }
 
 export { remind, reminderDateCheck };

@@ -8,6 +8,7 @@ import { Client, Events, GatewayIntentBits, ActivityType } from "discord.js";
 import botConfig from "../../config.json" assert { type: 'json' };
 
 import forwardMessage from "../module/forwardMessage.js";
+import { saveTalkLog } from "../module/memory.js";
 
 const discordClient = new Client({
 	intents: [
@@ -46,16 +47,8 @@ const init_discord = () => {
 					message.reply(response);
 					logger.info(`Send Message: ${response}`);
 
-					if(typeof global.memory?.data?.messages?.discord?.[message.author.username] === "undefined"){
-						global.memory.data.messages.discord = {
-							...global.memory.data.messages.discord,
-							[message.author.username]: []
-						};
-					}
+					saveTalkLog("discord", message.author.username, inputText, response);
 
-					global.memory.data.messages.discord[message.author.username].push(`${message.author.username}: ${inputText}`);
-					global.memory.data.messages.discord[message.author.username].push(`あなた: ${response}`);
-					
 				}else{
 					message.reply("サーバーでエラーが起きたみたいです...");
 				}

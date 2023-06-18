@@ -31,9 +31,26 @@ const loadMemory = () => {
   setInterval(saveMemory, 1000);
 }
 
+const saveTalkLog = (type, username, input, response) => {
+  if(typeof global.memory?.data?.messages[type][username] === "undefined"){
+    global.memory.data.messages[type] = {
+      ...global.memory.data.messages[type],
+      [username]: []
+    };
+  }
+
+  if(global.memory.data.messages[type][username].length > 10){
+    global.memory.data.messages[type][username].shift();
+    global.memory.data.messages[type][username].shift();
+  }
+
+  global.memory.data.messages[type][username].push(`${username}: ${input}`);
+  global.memory.data.messages[type][username].push(`あなた: ${response}`);
+}
+
 const saveMemory = () => {
   global.memory.lastWakeUp = Date.now();
   fs.writeFileSync(memoryPath, JSON.stringify(global.memory));
 }
 
-export default loadMemory;
+export { loadMemory, saveTalkLog };

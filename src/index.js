@@ -8,7 +8,7 @@ import botConfig from "../config.json" assert { type: 'json' };
 import init_discord from "./discord/init_discord.js";
 import init_slack from "./slack/init_slack.js";
 import init_misskey from "./misskey/init_misskey.js";
-import loadMemory from "./module/memory.js";
+import { loadMemory } from "./module/memory.js";
 import { reminderDateCheck } from "./module/remind.js";
 
 // ====== Bot Setup ======
@@ -22,8 +22,10 @@ if(botConfig.slack.isEnabled) init_slack();
 if(botConfig.misskey.isEnabled) init_misskey();
 
 
-// ====== Reminder ======
+// ====== Reminder / 2min ======
 
-global.memory.data.remind.forEach((reminder) => {
-  reminderDateCheck(reminder.msgid, reminder.date);
-});
+// setInterval(() => {
+//   global.memory.data.remind.forEach((date, key) => {
+//     reminderDateCheck(key, date);
+//   });
+// }, 1000 * 60 * 2);
