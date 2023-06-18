@@ -7,7 +7,6 @@ const reminderDateCheck = (msgid, date) => {
     })
 
     global.memory.data.remind[msgid] = Date.now() + 1000 * 60 * 60 * 3;
-
   }
 }
 

@@ -8,7 +8,7 @@ import { Configuration, OpenAIApi } from "openai";
 import prompt from "../lib/prompt.js";
 import botConfig from "../../config.json" assert { type: 'json' };
 
-import fetch from "node-fetch";
+import getWeather from "./weather.js";
 
 const configuration = new Configuration({
   apiKey: botConfig.chatgpt.apikey,
@@ -40,30 +40,6 @@ const getGPTResult = async (messages) => {
   });
 }
 
-const getWeatherData = async (locationtxt) => {
-  const locationobj = JSON.parse(locationtxt);
-  const location = locationobj.location;
-
-  logger.info(`Getting Weather Data Now...`);
-
-  const weather = await fetch(`http://api.weatherapi.com/v1/current.json?key=${botConfig.chatgpt.functions.weatherapi_apikey}&q=${location}&aqi=no&lang=ja`);
-  const weatherResult = await weather.json();
-
-  const sendWeatherData = {
-    location: weatherResult.location,
-    current: {
-      last_updated_epoch: weatherResult.current.last_updated_epoch,
-      last_updated: weatherResult.current.last_updated,
-      temp_c: weatherResult.current.temp_c,
-      is_day: weatherResult.current.is_day,
-      condition: weatherResult.current.condition,
-      humidity: weatherResult.current.humidity,
-    }
-  }
-
-  return sendWeatherData
-}
-
 export default async function talkgpt(inputText, messageLog) {
    let messages = [
     { "role": "system", "content": prompt },
@@ -91,7 +67,7 @@ export default async function talkgpt(inputText, messageLog) {
 
       switch (response.data.choices[0].message.function_call.name) {
         case "get_current_weather":
-          var functionData = getWeatherData(response.data.choices[0].message.function_call.arguments);
+          var functionData = getWeather(response.data.choices[0].message.function_call.arguments);
           break;
       
         default:
