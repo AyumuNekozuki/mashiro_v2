@@ -32,6 +32,13 @@ const loadMemory = () => {
 }
 
 const saveTalkLog = (type, username, input, response) => {
+  if(typeof global.memory?.data?.messages[type] === "undefined"){
+    global.memory.data.messages = {
+      ...global.memory.data.messages,
+      [type]: {}
+    }
+  }
+
   if(typeof global.memory?.data?.messages[type][username] === "undefined"){
     global.memory.data.messages[type] = {
       ...global.memory.data.messages[type],
