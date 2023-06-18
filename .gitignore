@@ -2,6 +2,8 @@
 config.json
 memory.json
 
+lib/prompt.js
+
 # Bot Build Data
 built
 node_modules
