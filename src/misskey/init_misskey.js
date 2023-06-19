@@ -29,7 +29,7 @@ const MkfetchApi = async (api, param) => {
 }
 
 const noteRepryCreate = async (replyId, text) => {
-  await MkfetchApi("notes/create", {
+  const result = await MkfetchApi("notes/create", {
     replyId: replyId,
     text: text,
   })
@@ -102,8 +102,10 @@ const wsConnect = () => {
     const msg = JSON.parse(msgevent.data);
 
     // isCatDecorator
-    if(msg.body.body.text.indexOf(/にゃ/)){
-      msg.body.body.text = msg.body.body.text.replace(/にゃ/g, "な");
+    if(msg.body.body.text){
+      if(msg.body.body.text.indexOf("にゃ")){
+        msg.body.body.text = msg.body.body.text.replace(/にゃ/g, "な");
+      }
     }
 
     if(msg.body.type === "mention"){

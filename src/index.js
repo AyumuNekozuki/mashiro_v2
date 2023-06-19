@@ -10,6 +10,7 @@ import init_slack from "./slack/init_slack.js";
 import init_misskey from "./misskey/init_misskey.js";
 import { loadMemory } from "./module/memory.js";
 import { reminderDateCheck } from "./module/remind.js";
+import sleepReport from "./module/sleepReport.js";
 
 // ====== Bot Setup ======
 
@@ -22,5 +23,7 @@ if(botConfig.slack.isEnabled) init_slack();
 if(botConfig.misskey.isEnabled) init_misskey();
 
 
-// ====== Reminder / 3min ======
+// ====== Module Setup ======
+
+sleepReport();
 reminderDateCheck();
