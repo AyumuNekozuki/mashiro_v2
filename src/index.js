@@ -22,10 +22,5 @@ if(botConfig.slack.isEnabled) init_slack();
 if(botConfig.misskey.isEnabled) init_misskey();
 
 
-// ====== Reminder / 2min ======
-
-// setInterval(() => {
-//   global.memory.data.remind.forEach((date, key) => {
-//     reminderDateCheck(key, date);
-//   });
-// }, 1000 * 60 * 2);
+// ====== Reminder / 3min ======
+reminderDateCheck();

@@ -34,7 +34,6 @@ const noteRepryCreate = async (replyId, text) => {
   })
 }
 
-
 const streamChannel_main = {
 	type: 'connect',
 	body: {
@@ -44,7 +43,42 @@ const streamChannel_main = {
 	}
 }
 
+// メンションされたらリアクション＆リプライ
+const mentionReplyMessage = async (msg) => {
+  const msgObj = msg.body.body;
+  try{
+    try{
+      await MkfetchApi("notes/reactions/create", {
+        noteId: msgObj.id,
+        reaction: "❤️",
+      });
+    }catch(e){
+      logger.error("リアクション付与に失敗しました。");
+    }
 
+    let inputText = msgObj.text.replace(/@mashiro/, "").trim();
+    inputText = inputText.replace(/<@.*>/g, "").trim();
+
+    logger.info(`Received Message: ${inputText}`);
+
+    var messageLog = null;
+    if(typeof global.memory?.data?.messages?.misskey?.[msgObj.user.username] !== "undefined"){
+      messageLog = global.memory.data.messages.misskey[msgObj.user.username];
+    }
+
+    const response = await forwardMessage(inputText, messageLog, msgObj);
+    
+    await noteRepryCreate(msgObj.id, response);
+    logger.info(`Send Message: ${response}`);
+
+    saveTalkLog("misskey", msgObj.user.username, inputText, response);
+  }catch(e){
+    logger.error(e);
+  }
+}
+
+
+// WebSocket
 const wsConnect = () => {
   logger.info("WebSocket is Connecting Now...");
   const stream = new WebSocket(`wss://${botConfig.misskey.host}/streaming?i=${botConfig.misskey.token}`);
@@ -58,28 +92,7 @@ const wsConnect = () => {
     const msg = JSON.parse(msgevent.data);
 
     if(msg.body.type === "mention"){
-      const msgObj = msg.body.body;
-      try{
-        let inputText = msgObj.text.replace(/@mashiro/, "").trim();
-        inputText = inputText.replace(/<@.*>/g, "").trim();
-
-        logger.info(`Received Message: ${inputText}`);
-
-        var messageLog = null;
-        if(typeof global.memory?.data?.messages?.misskey?.[msgObj.user.username] !== "undefined"){
-          messageLog = global.memory.data.messages.misskey[msgObj.user.username];
-        }
-
-        const response = await forwardMessage(inputText, messageLog, msgObj);
-        
-        await noteRepryCreate(msgObj.id, response);
-        logger.info(`Send Message: ${response}`);
-
-        saveTalkLog("misskey", msgObj.user.username, inputText, response);
-
-      }catch(e){
-        logger.error(e);
-      }
+      await mentionReplyMessage(msg);
     }
   }
 
@@ -88,6 +101,7 @@ const wsConnect = () => {
     wsConnect();
   }
 }
+
 
 const init_misskey = async () => {
   logger.info("Connecting to Misskey...");

@@ -65,9 +65,10 @@ export default async function talkgpt(inputText, messageLog) {
     // 関数呼び出しがあれば
     if(response.data.choices[0].message.function_call){
 
+      let functionData = null;
       switch (response.data.choices[0].message.function_call.name) {
         case "get_current_weather":
-          var functionData = getWeather(response.data.choices[0].message.function_call.arguments);
+          functionData = await getWeather(response.data.choices[0].message.function_call.arguments);
           break;
       
         default:
