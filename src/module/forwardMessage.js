@@ -9,13 +9,13 @@ import { remind, remindClear } from "../module/remind.js";
 
 const forwardMessage = async (inputText, messageLog, msgObj) => {
   try{
-    // remindClear
-    if(msgObj){
-      if(typeof global.memory.data.remind[msgObj.replyId] !== "undefined" || typeof global.memory.data.remind[msgObj.reply.renoteId] !== "undefined"){
-        return await remindClear(msgObj);
-      }
 
-      // Ping
+    const isMsgObj = msgObj ? true : false;
+    // remindClear
+    if(isMsgObj && ( typeof global.memory.data.remind[msgObj.replyId] !== "undefined" || typeof global.memory.data.remind[msgObj.reply.renoteId] !== "undefined")){
+        return await remindClear(msgObj);
+      
+        // ping
     }else if(inputText.match(/ping/)){
       return await ping();
 
