@@ -12,7 +12,7 @@ const forwardMessage = async (inputText, messageLog, msgObj) => {
 
     const isMsgObj = msgObj ? true : false;
     // remindClear
-    if(isMsgObj && ( typeof global.memory.data.remind[msgObj.replyId] !== "undefined" || typeof global.memory.data.remind[msgObj.reply.renoteId] !== "undefined")){
+    if(isMsgObj && ( typeof global.memory.data.remind[msgObj.replyId] !== "undefined" || typeof global.memory.data.remind[msgObj.reply?.renoteId] !== "undefined")){
         return await remindClear(msgObj);
       
         // ping
