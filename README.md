@@ -18,29 +18,29 @@ Misskey, Discord, Slackで利用できます。
 
 ```json
 {
-  "memoryDir": "data", //記憶の保存先
-  "chatgpt": { //ChatGPTの設定
+  "memoryDir": "data",
+  "chatgpt": {
     "isEnabled": true, 
-    "apikey": "hogehoge", //ChatGPTのAPIキー
+    "apikey": "apiKey",
     "functions": {
-      "weatherapi_apikey": "hogehoge" //天気予報APIのAPIキー
+      "weatherapi_apikey": "weatherapi.com's apikey" 
     }
   },
-  "misskey": { //Misskeyの設定
+  "misskey": {
     "isEnabled": true, 
-    "host": "example.com", //動かすインスタンスのドメイン
-    "token": "hogehoge" // MisskeyのBotアカウントのアクセストークン
+    "host": "Misskey Instance Domain: example.com", 
+    "token": "AccessToken" 
   },
-  "discord": { //Discordの設定
+  "discord": { 
     "isEnabled": true,
-    "token": "hogehoge" //DiscordのBotトークン
+    "token": "BotToken" 
   },
-  "slack": { //Slackの設定
+  "slack": { 
     "isEnabled": true,
     "port": 3001,
-    "botToken": "", //SlackのBotトークン
-    "signingSecret": "hogehoge", //signingSecret
-    "appToken": "xapp-hogehoge" //SlackのAppトークン
+    "botToken": "bot token", 
+    "signingSecret": "SigningSecret", 
+    "appToken": "xapp-token" 
   }
 }
 
@@ -61,3 +61,8 @@ const prompt = `
 export default prompt;
 
 ```
+
+ファイルを作ったら、
+`yarn install` → `yarn start` で起動できます。
+
+systemdの設定などよしなにしてください。
