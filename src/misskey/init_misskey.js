@@ -25,7 +25,11 @@ const MkfetchApi = async (api, param) => {
     }),
   });
 
+  if(api == "notes/reactions/create"){
+    return "ok";
+  }
   return await response.json();
+
 }
 
 const noteRepryCreate = async (replyId, text) => {

@@ -46,10 +46,19 @@ const ltlReaction = async (msg) => {
     return reactionCreate(note.id, reaction);
   }
 
-  if(note.text.indexOf('すき')) return reactionCreate(note.id, '🍣');
-  if(note.text.indexOf('おなかすいた')) return reactionCreate(note.id, '🍔');
-  if(note.text.indexOf('ねむい')) return reactionCreate(note.id, '💤');
-  if(note.text.indexOf('ましろ')) return reactionCreate(note.id, '🤍');
+  if(note.text.indexOf('すし') > 0){
+    return reactionCreate(note.id, '🍣')
+  };
+
+  if(note.text.indexOf('おなかすいた') > 0){
+    return reactionCreate(note.id, '🍔')
+  };
+  if(note.text.indexOf('ねむい') > 0){
+    return reactionCreate(note.id, '💤')
+  };
+  if(note.text.indexOf('ましろ') > 0){
+    return reactionCreate(note.id, '🤍')
+  };
 
 }
 
