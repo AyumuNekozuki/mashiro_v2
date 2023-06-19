@@ -16,7 +16,7 @@ const forwardMessage = async (inputText, messageLog, msgObj) => {
       // なければ通常フローへ
     }else if(inputText.match(/ping/)){
       return await ping();
-    }else if(inputText.match(/rmdtst/)){
+    }else if(inputText.match(/remind/)){
       return await remind(msgObj);
     }else{
       return await talkgpt(inputText, messageLog);
