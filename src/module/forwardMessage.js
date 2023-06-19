@@ -9,15 +9,21 @@ import { remind, remindClear } from "../module/remind.js";
 
 const forwardMessage = async (inputText, messageLog, msgObj) => {
   try{
-    // リマインダーチェック
-    if(typeof global.memory.data.remind[msgObj.replyId] !== "undefined" || typeof global.memory.data.remind[msgObj.reply.renoteId] !== "undefined"){
-      return await remindClear(msgObj);
+    // remindClear
+    if(msgObj){
+      if(typeof global.memory.data.remind[msgObj.replyId] !== "undefined" || typeof global.memory.data.remind[msgObj.reply.renoteId] !== "undefined"){
+        return await remindClear(msgObj);
+      }
 
-      // なければ通常フローへ
+      // Ping
     }else if(inputText.match(/ping/)){
       return await ping();
+
+      // RemindSet
     }else if(inputText.match(/remind/)){
       return await remind(msgObj);
+
+      // TalkGPT
     }else{
       return await talkgpt(inputText, messageLog);
     }

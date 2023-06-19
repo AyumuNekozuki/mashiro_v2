@@ -33,6 +33,8 @@ const init_discord = () => {
 			try{
 				message.channel.sendTyping();
 
+				console.log(message)
+
 				const inputText = message.content.replace(/<@.*>/g, "").trim();
 				logger.info(`Received Message: ${inputText}`);
 
