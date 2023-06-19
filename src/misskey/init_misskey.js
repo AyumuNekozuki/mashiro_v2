@@ -11,6 +11,7 @@ import botConfig from "../../config.json" assert { type: 'json' };
 
 import forwardMessage from "../module/forwardMessage.js";
 import { saveTalkLog } from "../module/memory.js";
+import ltlReaction from "../module/ltlReaction.js";
 
 const MkfetchApi = async (api, param) => {
   const response = await fetch(`https://${botConfig.misskey.host}/api/${api}`, {
@@ -39,6 +40,14 @@ const streamChannel_main = {
 	body: {
 		channel: 'main',
 		id: 'streamChannel_main',
+		params: {}
+	}
+}
+const streamChannel_ltl = {
+	type: 'connect',
+	body: {
+		channel: 'localTimeline',
+		id: 'streamChannel_ltl',
 		params: {}
 	}
 }
@@ -85,14 +94,22 @@ const wsConnect = () => {
 
   stream.onopen = () => {
     stream.send(JSON.stringify(streamChannel_main));
+    stream.send(JSON.stringify(streamChannel_ltl));
     logger.info("WebSocket is Connected!");
   }
 
   stream.onmessage = async (msgevent) => {
     const msg = JSON.parse(msgevent.data);
 
+    // isCatDecorator
+    if(msg.body.body.text.indexOf(/にゃ/)){
+      msg.body.body.text = msg.body.body.text.replace(/にゃ/g, "な");
+    }
+
     if(msg.body.type === "mention"){
       await mentionReplyMessage(msg);
+    }else if(msg.body.type === "note"){
+      await ltlReaction(msg);
     }
   }
 
