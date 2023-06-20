@@ -19,8 +19,8 @@ const reminderDateCheck = async () => {
 
         delete global.memory.data.remind[key];
 
-        // 6H後
-        global.memory.data.remind[key] = Date.now() + 1000 * 60 * 60 * 6;
+        // 3H後
+        global.memory.data.remind[key] = Date.now() + 1000 * 60 * 60 * 3;
       }
     });
 
@@ -86,7 +86,7 @@ const remind = (msgObj) => {
     [msgObj.id]: Date.now() + 1000 * 60 * 60 * 3
   }
 
-  return 'この機能は準備中です...ごめんなさい...';
+  return '了解です！3時間後にリマインドします...！';
 }
 
 export { remind, reminderDateCheck, remindClear };
