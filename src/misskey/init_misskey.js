@@ -60,11 +60,14 @@ const streamChannel_ltl = {
 const mentionReplyMessage = async (msg) => {
   const msgObj = msg.body.body;
   try{
-    try{
+    setTimeout(() => {
       await MkfetchApi("notes/reactions/create", {
         noteId: msgObj.id,
         reaction: "❤️",
       });
+    }, 1500);
+    try{
+ 
     }catch(e){
       logger.error("リアクション付与に失敗しました。");
     }
