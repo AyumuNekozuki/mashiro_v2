@@ -60,7 +60,7 @@ const streamChannel_ltl = {
 const mentionReplyMessage = async (msg) => {
   const msgObj = msg.body.body;
   try{
-    setTimeout(() => {
+    await setTimeout(async () => {
       await MkfetchApi("notes/reactions/create", {
         noteId: msgObj.id,
         reaction: "❤️",

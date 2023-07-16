@@ -8,7 +8,7 @@ import { MkfetchApi } from "../misskey/init_misskey.js";
 
 const reactionCreate = async (noteId, reaction) => {
   try{
-    setTimeout(() => {
+    await setTimeout(async () => {
       const result = await MkfetchApi("notes/reactions/create", {
         noteId: noteId,
         reaction: reaction + ""
