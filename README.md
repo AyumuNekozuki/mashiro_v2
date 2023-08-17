@@ -1,5 +1,4 @@
-<h1><p align="center"><img src="https://raw.githubusercontent.com/AyumuNekozuki/mashiro_v2/main/mashiro.png" alt="Mashiro-code" height="200"></p></h1>
-<p align="center">An Mashiro for Misskey.</p>
+<small>Forked from [AyumuNekozuki/mashiro_v2](https://github.com/AyumuNekozuki/mashiro_v2)</small>
 
 ---
 
