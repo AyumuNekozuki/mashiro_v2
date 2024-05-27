@@ -10,6 +10,8 @@ import botConfig from "../../config.json" assert { type: 'json' };
 import forwardMessage from "../module/forwardMessage.js";
 import { saveTalkLog } from "../module/memory.js";
 
+import { MkfetchApi } from "../misskey/init_misskey.js"
+
 const discordClient = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
@@ -57,6 +59,26 @@ const init_discord = () => {
 				logger.error(e);
 			}
 		});
+
+		setInterval(async () => {
+			try{
+				const pingResponse = await MkfetchApi("ping", {});
+				if(!pingResponse.pong) throw new Error(`Misskey Ping: Failed`);
+
+				discordClient.user.setActivity("みすほわいと", {
+					type: ActivityType.Watching,
+				});
+				logger.info(`Misskey Ping: Success ${pingResponse.pong}`);
+			}catch(e){
+				discordClient.user.setActivity("みすほわが見れません...", {
+					type: ActivityType.Custom,
+				});
+				logger.error(e);
+			}
+
+
+		}, 1000 * 10);
+
 
 	});
 	discordClient.login(botConfig.discord.token);
