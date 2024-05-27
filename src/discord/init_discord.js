@@ -76,8 +76,7 @@ const init_discord = () => {
 				logger.error(e);
 			}
 
-
-		}, 1000 * 10);
+		}, 1000 * 60 * 15);
 
 
 	});

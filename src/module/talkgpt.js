@@ -18,7 +18,7 @@ const openai = new OpenAIApi(configuration);
 
 const getGPTResult = async (messages) => {
   return await openai.createChatCompletion({
-    model: "gpt-3.5-turbo-0613",
+    model: "gpt-4o",
     messages: messages,
     functions: [
       {
