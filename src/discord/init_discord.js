@@ -5,7 +5,7 @@ Log4js.configure("log-config.json");
 const logger = Log4js.getLogger("discord");
 
 import { Client, Events, GatewayIntentBits, ActivityType } from "discord.js";
-import botConfig from "../../config.json" assert { type: 'json' };
+import botConfig from "../../config.json" with { type: 'json' };
 
 import forwardMessage from "../module/forwardMessage.js";
 import { saveTalkLog } from "../module/memory.js";

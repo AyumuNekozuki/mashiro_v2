@@ -6,7 +6,7 @@ const logger = Log4js.getLogger("slack");
 
 import slackBolt from '@slack/bolt';
 const { App } = slackBolt;
-import botConfig from "../../config.json" assert { type: 'json' };
+import botConfig from "../../config.json" with { type: 'json' };
 
 import forwardMessage from "../module/forwardMessage.js";
 import { saveTalkLog } from "../module/memory.js";

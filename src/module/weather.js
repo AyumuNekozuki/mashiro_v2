@@ -2,7 +2,7 @@ import Log4js from "log4js";
 Log4js.configure("log-config.json");
 const logger = Log4js.getLogger("getWeather");
 
-import botConfig from "../../config.json" assert { type: 'json' };
+import botConfig from "../../config.json" with { type: 'json' };
 
 import fetch from "node-fetch";
 

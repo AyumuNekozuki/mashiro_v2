@@ -3,7 +3,7 @@
 import Log4js from "log4js";
 Log4js.configure("log-config.json");
 
-import botConfig from "../config.json" assert { type: 'json' };
+import botConfig from "../config.json" with { type: 'json' };
 
 import init_discord from "./discord/init_discord.js";
 import init_slack from "./slack/init_slack.js";

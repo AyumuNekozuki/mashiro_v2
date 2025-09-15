@@ -7,7 +7,7 @@ const logger = Log4js.getLogger("Memory");
 
 import fs from "fs";
 
-import botConfig from "../../config.json" assert { type: 'json' };
+import botConfig from "../../config.json" with { type: 'json' };
 
 const memoryPath = `${botConfig.memoryDir}/memory.json`;
 

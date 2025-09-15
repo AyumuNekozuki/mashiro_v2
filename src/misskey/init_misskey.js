@@ -7,7 +7,7 @@ const logger = Log4js.getLogger("misskey");
 import fetch from "node-fetch";
 import WebSocket from "ws";
 
-import botConfig from "../../config.json" assert { type: 'json' };
+import botConfig from "../../config.json" with { type: 'json' };
 
 import forwardMessage from "../module/forwardMessage.js";
 import { saveTalkLog } from "../module/memory.js";

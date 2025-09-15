@@ -6,7 +6,7 @@ const logger = Log4js.getLogger("GPT");
 
 import { Configuration, OpenAIApi } from "openai";
 import prompt from "../lib/prompt.js";
-import botConfig from "../../config.json" assert { type: 'json' };
+import botConfig from "../../config.json" with { type: 'json' };
 
 import getWeather from "./weather.js";
 
