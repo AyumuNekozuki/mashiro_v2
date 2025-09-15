@@ -20,22 +20,22 @@ const getGPTResult = async (messages) => {
   return await openai.createChatCompletion({
     model: "gpt-4o",
     messages: messages,
-    functions: [
-      {
-        "name": "get_current_weather",
-        "description": "今日の指定した地点の天気情報を取得する",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "location": {
-              "type": "string",
-              "description": `都道府県名。英語で入力すること。東京近郊の地名が入力された場合は東京に置き換え、それ以外の地名が入力された場合は、県庁所在地名に置き換えること。例：原宿→Tokyo, 渋谷→Tokyo, 北海道→Sapporo, 沖縄→Naha, 京都→Kyoto`
-            },
-          },
-          "required": ["location"]
-        }
-      }
-    ],
+    // functions: [
+    //   {
+    //     "name": "get_current_weather",
+    //     "description": "今日の指定した地点の天気情報を取得する",
+    //     "parameters": {
+    //       "type": "object",
+    //       "properties": {
+    //         "location": {
+    //           "type": "string",
+    //           "description": `都道府県名。英語で入力すること。東京近郊の地名が入力された場合は東京に置き換え、それ以外の地名が入力された場合は、県庁所在地名に置き換えること。例：原宿→Tokyo, 渋谷→Tokyo, 北海道→Sapporo, 沖縄→Naha, 京都→Kyoto`
+    //         },
+    //       },
+    //       "required": ["location"]
+    //     }
+    //   }
+    // ],
     function_call: "auto"
   });
 }
